@@ -1,0 +1,38 @@
+version: "3.0"
+
+services:
+  # database service
+  db:
+    image: mariadb:latest
+    env_file:
+      - ./site/.env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - dbg-sql-data:/var/lib/mysql
+    networks:
+      - dbg-net
+  # wordpress
+  wordpress:
+    env_file:
+      - ./site/.env
+    environment:
+      WP_SITEURL: ${WP_HOME}/wp
+    build:
+      context: "."
+      dockerfile: Dockerfile
+    volumes:
+      - ./site:/data
+    depends_on:
+      - db
+    ports:
+      - "9000:8080"
+    networks:
+      - dbg-net
+networks:
+  dbg-net:
+volumes:
+  dbg-sql-data:
