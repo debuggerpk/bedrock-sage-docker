@@ -16,6 +16,9 @@
       "homepage": "https://github.com/retlehs"
     }
   ],
+  "keywords": [
+    "bedrock", "composer", "roots", "wordpress", "wp", "wp-config"
+  ],
   "support": {
     "issues": "https://github.com/roots/bedrock/issues",
     "forum": "https://discourse.roots.io/category/bedrock"
@@ -34,11 +37,9 @@
     "composer/installers": "^1.4",
     "vlucas/phpdotenv": "^2.0.1",
     "oscarotero/env": "^1.1.0",
-    "roots/wordpress": "5.0.2",
+    "roots/wordpress": "5.0.3",
     "roots/wp-config": "1.0.0",
-    "roots/wp-password-bcrypt": "1.0.0",
-    "wpackagist-plugin/jetpack": "*",
-    "wpackagist-plugin/akismet": "*"
+    "roots/wp-password-bcrypt": "1.0.0"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.0.2",
@@ -46,15 +47,9 @@
   },
   "extra": {
     "installer-paths": {
-      "web/app/mu-plugins/{$name}/": [
-        "type:wordpress-muplugin"
-      ],
-      "web/app/plugins/{$name}/": [
-        "type:wordpress-plugin"
-      ],
-      "web/app/themes/{$name}/": [
-        "type:wordpress-theme"
-      ]
+      "web/app/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
+      "web/app/plugins/{$name}/": ["type:wordpress-plugin"],
+      "web/app/themes/{$name}/": ["type:wordpress-theme"]
     },
     "wordpress-install-dir": "web/wp"
   },
