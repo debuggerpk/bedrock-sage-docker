@@ -16,7 +16,7 @@ services:
     networks:
       - dbg-net
   # wordpress
-  wordpress:
+  wp:
     env_file:
       - ./site/.env
     environment:
@@ -29,7 +29,8 @@ services:
     depends_on:
       - db
     ports:
-      - "9000:8080"
+      - "8000:8080"
+      - "9000:9000"
     networks:
       - dbg-net
 networks:
