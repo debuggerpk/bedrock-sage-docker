@@ -6,10 +6,7 @@ RUN apk upgrade
 RUN apk add --no-cache bash\
   ca-certificates\
   curl\
-  mysql-client\
-  gcc \
-  musl-dev \
-  make
+  mysql-client
 
 # Install PHP
 RUN apk add --no-cache --upgrade php7\
@@ -33,7 +30,6 @@ RUN apk add --no-cache --upgrade php7\
   php7-pdo \
   php7-pdo_mysql \
   php7-pear \
-  # php7-pecl-xdebug \
   php7-phar \
   php7-session \
   php7-simplexml \
