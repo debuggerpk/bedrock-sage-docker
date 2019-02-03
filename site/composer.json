@@ -17,7 +17,12 @@
     }
   ],
   "keywords": [
-    "bedrock", "composer", "roots", "wordpress", "wp", "wp-config"
+    "bedrock",
+    "composer",
+    "roots",
+    "wordpress",
+    "wp",
+    "wp-config"
   ],
   "support": {
     "issues": "https://github.com/roots/bedrock/issues",
@@ -39,7 +44,11 @@
     "oscarotero/env": "^1.1.0",
     "roots/wordpress": "5.0.3",
     "roots/wp-config": "1.0.0",
-    "roots/wp-password-bcrypt": "1.0.0"
+    "roots/wp-password-bcrypt": "1.0.0",
+    "wpackagist-plugin/akismet": "4.0.7",
+    "wpackagist-plugin/google-sitemap-generator": "4.1.0",
+    "wpackagist-plugin/jetpack": "6.9",
+    "wpackagist-plugin/wp-subtitle": "3.2"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.0.2",
@@ -47,9 +56,19 @@
   },
   "extra": {
     "installer-paths": {
-      "web/app/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
-      "web/app/plugins/{$name}/": ["type:wordpress-plugin"],
-      "web/app/themes/{$name}/": ["type:wordpress-theme"]
+      "web/app/mu-plugins/{$name}/": [
+        "type:wordpress-muplugin",
+        "wpackagist-plugin/akismet",
+        "wpackagist-plugin/jetpack",
+        "wpackagist-plugin/wp-subtitle",
+        "wpackagist-plugin/google-sitemap-generator"
+      ],
+      "web/app/plugins/{$name}/": [
+        "type:wordpress-plugin"
+      ],
+      "web/app/themes/{$name}/": [
+        "type:wordpress-theme"
+      ]
     },
     "wordpress-install-dir": "web/wp"
   },

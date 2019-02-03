@@ -1,11 +1,11 @@
-FROM alpine:latest
+FROM alpine:3.9
 
 
 RUN apk update
 RUN apk upgrade
 RUN apk add --no-cache bash\
-  ca-certificates\
-  curl\
+  ca-certificates \
+  curl \
   mysql-client
 
 # Install PHP
@@ -38,6 +38,8 @@ RUN apk add --no-cache --upgrade php7\
   php7-xmlreader \
   php7-zlib
 
+RUN apk add --no-cache php7-xmlwriter
+
 # Install XDebug
 #RUN pecl config-set php_ini /etc/php7/php.ini
 #RUN pecl install xdebug
@@ -54,8 +56,12 @@ RUN apk add --no-cache --upgrade php7\
 # Remove unused dependencies
 RUN rm -rf /var/cache/apk/*
 
-# PHP INFO
-RUN php -v
+RUN mkdir /var/.composer
+ENV COMPOSER_HOME=/var/.composer
+
+# PHP Composer
+COPY docker/bin/composer-install.sh /tmp/composer-install.sh
+RUN /tmp/composer-install.sh
 
 # WORDPRESS CLI
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
@@ -66,4 +72,8 @@ RUN mv wp-cli.phar /usr/local/bin/wp
 # BEDROCK
 VOLUME [ "/data" ]
 WORKDIR /data
+
+COPY docker/bin/local-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+ENTRYPOINT ["docker-entrypoint.sh"]
+
 CMD ["wp", "server", "--docroot=web", "--host=0.0.0.0"]
