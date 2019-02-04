@@ -17,7 +17,6 @@ services:
       - "3306:3306"
     networks:
       - dbg-net
-
   # wordpress
   wp:
     env_file:
@@ -29,17 +28,31 @@ services:
       context: "."
     # mounting local volume for hot-reload
     volumes:
-      - ./site:/data # Mounting Sourcecode
+      - ./site:/site # Mounting Sourcecode
       - /var/cache/composer # Composer Cache [See Anonymous Volumes]
     depends_on:
       - db
-    ports:
-      - "8080:8080"
+    # ports:
+    #   - "8080:8080"
     networks:
       - dbg-net
-
+  # theme
+  theme:
+    build:
+      dockerfile: docker/theme.local.Dockerfile
+      context: "."
+    volumes:
+      - ./theme:/theme
+      - /theme/node_modules
+      - /var/cache/yarn
+    depends_on:
+      - wp
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    networks:
+      - dbg-net
 networks:
   dbg-net:
-
 volumes:
   dbg-sql-data:

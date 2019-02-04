@@ -65,11 +65,13 @@ RUN php ./wp-cli.phar --info
 RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
 
-# PHP Composer [install & update composer packages at runtime]
+# PHP Composer
 COPY docker/bin/composer-install.sh /tmp/composer-install.sh
 RUN /tmp/composer-install.sh
-COPY docker/bin/local-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-ENTRYPOINT ["docker-entrypoint.sh"]
 
-WORKDIR /data
+WORKDIR /site
+
+# Update composer dependencies at runtime
+COPY docker/bin/wp-entrypoint.sh /usr/local/bin/wp-entrypoint.sh
+ENTRYPOINT ["wp-entrypoint.sh"]
 CMD ["wp", "server", "--docroot=web", "--host=0.0.0.0"]
