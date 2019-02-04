@@ -36,9 +36,8 @@ RUN apk add --no-cache --upgrade php7\
   php7-tokenizer \
   php7-xml \
   php7-xmlreader \
+  php7-xmlwriter \
   php7-zlib
-
-RUN apk add --no-cache php7-xmlwriter
 
 # Install XDebug
 #RUN pecl config-set php_ini /etc/php7/php.ini
@@ -56,12 +55,9 @@ RUN apk add --no-cache php7-xmlwriter
 # Remove unused dependencies
 RUN rm -rf /var/cache/apk/*
 
-RUN mkdir /var/.composer
-ENV COMPOSER_HOME=/var/.composer
+RUN mkdir /var/cache/composer
+ENV COMPOSER_HOME=/var/cache/composer
 
-# PHP Composer
-COPY docker/bin/composer-install.sh /tmp/composer-install.sh
-RUN /tmp/composer-install.sh
 
 # WORDPRESS CLI
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
@@ -69,11 +65,11 @@ RUN php ./wp-cli.phar --info
 RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
 
-# BEDROCK
-VOLUME [ "/data" ]
-WORKDIR /data
-
+# PHP Composer [install & update composer packages at runtime]
+COPY docker/bin/composer-install.sh /tmp/composer-install.sh
+RUN /tmp/composer-install.sh
 COPY docker/bin/local-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["docker-entrypoint.sh"]
 
+WORKDIR /data
 CMD ["wp", "server", "--docroot=web", "--host=0.0.0.0"]

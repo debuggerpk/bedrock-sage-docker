@@ -25,11 +25,12 @@ services:
     environment:
       WP_SITEURL: ${WP_HOME}/wp
     build:
-      dockerfile: docker/local.Dockerfile
+      dockerfile: docker/wp.local.Dockerfile
       context: "."
     # mounting local volume for hot-reload
     volumes:
-      - ./site:/data
+      - ./site:/data # Mounting Sourcecode
+      - /var/cache/composer # Composer Cache [See Anonymous Volumes]
     depends_on:
       - db
     ports:

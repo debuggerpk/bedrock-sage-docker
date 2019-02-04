@@ -76,6 +76,7 @@
     "yargs": "~11.0.0"
   },
   "dependencies": {
-    "jquery": "^3.3.1"
+    "jquery": "^3.3.1",
+    "normalize-scss": "^7.0.1"
   }
 }

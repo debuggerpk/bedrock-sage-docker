@@ -46,6 +46,7 @@
     "roots/wp-config": "1.0.0",
     "roots/wp-password-bcrypt": "1.0.0",
     "wpackagist-plugin/akismet": "4.0.7",
+    "wpackagist-plugin/all-in-one-seo-pack": "2.11",
     "wpackagist-plugin/google-sitemap-generator": "4.1.0",
     "wpackagist-plugin/jetpack": "6.9",
     "wpackagist-plugin/wp-subtitle": "3.2"
