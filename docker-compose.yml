@@ -45,8 +45,8 @@ services:
       - ./theme:/theme
       - /theme/node_modules
       - /var/cache/yarn
-    depends_on:
-      - wp
+    # depends_on:
+    #   - wp
     ports:
       - "3000:3000"
       - "3001:3001"

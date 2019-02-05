@@ -1,9 +1,26 @@
 FROM node:lts-alpine
 
-RUN apk add --no-cache bash\
-  ca-certificates \
-  curl \
-  mysql-client
+RUN apk add --no-cache bash \
+  autoconf \
+  automake \
+  make \
+  g++ \
+  libtool \
+  gifsicle \
+  libjpeg-turbo-utils \
+  libpng-dev \
+  libjpeg-turbo \
+  libjpeg-turbo-dev \
+  libpng \
+  libpng-dev \
+  libwebp \
+  libwebp-dev \
+  nasm \
+  zlib \
+  zlib-dev \
+  lcms2-dev
+
+RUN rm -rf /var/cache/apk/*
 
 RUN yarn config set cache-folder /var/cache/yarn
 
