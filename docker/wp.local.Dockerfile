@@ -1,15 +1,14 @@
 FROM alpine:3.9
 
 
-RUN apk update
-RUN apk upgrade
-RUN apk add --no-cache bash\
+RUN apk upgrade && \
+  apk add --no-cache bash \
   ca-certificates \
   curl \
   mysql-client
 
 # Install PHP
-RUN apk add --no-cache --upgrade php7\
+RUN apk add --no-cache php7 \
   php7-apcu \
   php7-bcmath \
   php7-common \
@@ -70,6 +69,8 @@ COPY docker/bin/composer-install.sh /tmp/composer-install.sh
 RUN /tmp/composer-install.sh
 
 WORKDIR /site
+
+RUN ls -al
 
 # Update composer dependencies at runtime
 COPY docker/bin/wp-entrypoint.sh /usr/local/bin/wp-entrypoint.sh
